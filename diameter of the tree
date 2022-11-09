@@ -1,0 +1,45 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+struct node{
+	int data;
+	struct node *left,*right;
+};
+struct node *newnode(int data);
+int max(int a,int b){
+	return (a>b)?a:b;
+}
+int height(struct node *node);
+int daimeter(struct node *tree){
+	if(tree==NULL){
+		return NULL;
+	}
+	int l=height(tree->left);
+	int r=height(tree->right);
+	int d=daimeter(tree->left);
+	int f=daimeter(tree->right);
+	
+	return max(l+r+1,max(d,f));
+	
+}
+int height(struct node *node){
+	if(node==NULL){
+		return 0;
+	}
+	return 1+max(height(node->left),height(node->right));
+}
+struct node *newnode(int data){
+	struct node *node=(struct node*)malloc(sizeof(struct node));
+	node->data=data;
+	node->left=NULL;
+	node->right=NULL;
+	return node;
+}
+int main(){
+	struct node *root=newnode(1);
+	root->left=newnode(9);
+	root->right=newnode(10);
+	root->left->left=newnode(8);
+	root->right->right=newnode(89);
+	cout<<"the diameter of the tree are "<<daimeter(root);
+}
