@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int data;
+	struct node *left;
+	struct node *right;
+};
+struct node *newnode(int val){
+	struct node *newnode=(struct node*)malloc(sizeof(struct node));
+	newnode->data=val;
+	newnode->left=newnode->right=NULL;
+	return newnode;
+	}
+int isBST(struct node *root){
+	if(root!=NULL){
+		if(root->left!=NULL&&root->right!=NULL){
+			struct node *prev,*prev1;
+			prev=root->left;
+			prev1=root->right;
+			if(prev->data<root->data&&prev1->data>root->data){
+				return 1;
+			}
+		}
+	return 0;
+	}
+}
+int main(){
+	struct node *root=newnode('K');
+	root->right=newnode('N');
+	root->left=newnode('B');
+	root->left->left=newnode('L');
+	root->right->right=newnode('O');
+	int e=isBST(root);
+	if(e==1){
+		printf("the tree is BST");
+	}
+	else{
+		printf("tree is not BST");
+	}
+}
