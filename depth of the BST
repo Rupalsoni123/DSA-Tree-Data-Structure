@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+struct node{
+	struct node *left;
+	struct node *right;
+	int data;
+	struct node *create(int data){
+		node *newl=new node;
+		this->data=data;
+		newl->left=newl->right=NULL;
+	}
+};
+int depth(node *root){
+	if(root==NULL){
+		return 0;
+	}
+	else{
+		int l=depth(root->left);
+		int r=depth(root->right);
+		if(l>r)
+		    return l+1;
+		else 
+		    return r+1;
+	}
+	
+}
+int main(){
+	struct node *root=NULL;
+	root->left=create(90);
+	root->right=create(900);
+	root->left->left=create(99);
+	root->right->right=create(89);
+	int d=depth(root);
+	cout<<"te depth of the tree"<<" "<<d;
+}
