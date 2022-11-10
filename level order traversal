@@ -1,0 +1,48 @@
+#include<iostream>
+using namespace std;
+class node{
+	public:
+	int data;
+	node *left,*right;
+};
+void printcurrentlevel(node *root,int level);
+int height(node *node){
+	if(node==NULL){
+		return 0;
+	}
+	return 1+max(height(node->left),height(node->right));
+}
+int max(int a,int b){
+	return (a>b)?a:b;
+}
+node *create(int data){
+	node *newnode=new node();
+	newnode->data=data;
+	newnode->left=newnode->right=NULL;
+	return newnode;
+}
+void printlevelorder(node *root){
+	int h=height(root);
+	int i;
+	for(i=1;i<=h;i++)
+	printcurrentlevel(root,i);
+}
+void printcurrentlevel(node *root,int level){
+	if(root==NULL)
+	return;
+	if(level==1)
+	cout<<root->data<<" ";
+	else if(level>1){
+		printcurrentlevel(root->left,level-1);
+		printcurrentlevel(root->right,level-1);
+	}
+}
+int main(){
+	node *root=create(8);
+	root->left=create(4);
+	root->right=create(90);
+	root->left->left=create(9);
+	root->right->right=create(89);
+	cout<<"the level order traversal is ";
+	printlevelorder(root);
+}
